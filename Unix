@@ -1,0 +1,171 @@
+>>>>>>>>.To check calendar, you need to type the cal command as follows −
+
+$ cal
+     June 2009
+Su Mo Tu We Th Fr Sa
+    1  2  3  4  5  6
+ 7  8  9 10 11 12 13
+14 15 16 17 18 19 20
+21 22 23 24 25 26 27
+28 29 30
+---------------------------------
+Change Password
+
+$ passwd
+Changing password for amrood
+(current) Unix password:******
+New UNIX password:*******
+Retype new UNIX password:*******
+passwd: all authentication tokens updated  successfully
+---------------------------------------
+Listing Directories and Files
+
+$ ls -l
+total 19621
+drwxrwxr-x  2 amrood amrood      4096 Dec 25 09:59 uml
+-rw-rw-r--  1 amrood amrood      5341 Dec 25 08:38 uml.jpg
+drwxr-xr-x  2 amrood amrood      4096 Feb 15  2006 univ
+drwxr-xr-x  2 root   root        4096 Dec  9  2007 urlspedia
+-rw-r--r--  1 root   root      276480 Dec  9  2007 urlspedia.tar
+drwxr-xr-x  8 root   root        4096 Nov 25  2007 usr
+-rwxr-xr-x  1 root   root        3192 Nov 25  2007 webthumb.php
+-rw-rw-r--  1 amrood amrood     20480 Nov 25  2007 webthumb.tar
+-rw-rw-r--  1 amrood amrood      5654 Aug  9  2007 yourfile.mid
+-rw-rw-r--  1 amrood amrood    166255 Aug  9  2007 yourfile.swf
+
+--------------------------------------
+Who Are You?
+
+$ whoami
+ amrood
+--------------------------------------
+Who is Logged in?
+
+$ users
+ amrood bablu qadir
+
+$ who
+amrood ttyp0 Oct 8 14:10 (limbo)
+bablu  ttyp2 Oct 4 09:08 (calliope)
+qadir  ttyp4 Oct 8 12:09 (dent)
+
+-------------------------------------------
+Logging Out
+
+$logout 
+--------------------------------
+System Shutdown
+
+$halt
+Brings the system down immediately
+
+$init 0
+Powers off the system using predefined scripts to synchronize and clean up the system prior to shutting down
+
+$init 6
+Reboots the system by shutting it down completely and then restarting it
+
+$poweroff
+Shuts down the system by powering off
+
+$reboot
+Reboots the system
+
+$shutdown
+Shuts down the system
+
+------------------------------------------
+Unix - File Management
+--------------------------------------------
+All data in Unix is organized into files. All files are organized into directories. These directories are organized into a tree-like structure called the filesystem.
+
+In Unix, there are three basic types of files −
+
+Ordinary Files, Directories ,Special Files − Some special files provide access to hardware such as hard drives, CD-ROM drives, modems, and Ethernet adapters. 
+----------------------------------------
+Metacharacters
+We use * to match 0 or more characters, a question mark (?) matches with a single character.
+$ls ch*.doc
+ch01-1.doc   ch010.doc  ch02.doc    ch03-2.doc 
+ch04-1.doc   ch040.doc  ch05.doc    ch06-2.doc
+ch01-2.doc ch02-1.doc c
+------------------------------------
+$ls *.doc
+display all the files ending with just .doc
+
+-----------------------------
+Hidden Files
+To list the invisible files, specify the -a option to ls −
+
+$ ls -a
+
+.         .profile       docs     lib     test_results
+..        .rhosts        hosts    pub     users
+.emacs    bin            hw1      res.01  work
+.exrc     ch07           hw2      res.02
+.kshrc    ch07.bak       hw3      res.03
+
+Single dot (.) − This represents the current directory.
+
+Double dot (..) − This represents the parent directory.
+---------------------------------------
+
+Creating Files
+
+$ vi filename
+
+------------------------------
+Editing Files
+
+$ vi filename
+
+l key to move to the right side.
+
+h key to move to the left side.
+
+k key to move upside in the file.
+
+j key to move downside in the file.
+------------------------------------
+Display Content of a File
+
+$ cat filename
+This is unix file....I created it for the first time.....
+I'm going to save this content in this file.
+
+$ cat -b filename
+1   This is unix file....I created it for the first time.....
+2   I'm going to save this content in this file.
+$
+---------------------------------------
+
+Counting Words in a File
+
+$ wc filename
+2  19 103 filename
+
+You can give multiple files and get information about those files at a time.
+
+$ wc filename1 filename2 filename3
+-------------------------------------------
+Copying Files
+
+$ cp source_file destination_file
+
+--------------------------------
+Renaming Files
+
+$ mv old_file new_file
+
+-----------------------------
+Deleting Files
+
+$ rm filename
+
+You can remove multiple files at a time 
+
+$ rm filename1 filename2 filename3
+---------------------------------------
+
+
+

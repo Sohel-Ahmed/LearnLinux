@@ -1,0 +1,103 @@
+Unix - Directory Management
+---------------------------------------
+Home Directory
+
+You can go in your home directory anytime using 
+the following command −
+
+$cd ~
+
+Here ~ indicates the home directory. Suppose you have to go in any other user's home directory, use the following command −
+
+$cd ~username
+
+To go in your last directory, you can use the following command −
+
+$cd -
+
+----------------------------------------------
+
+Absolute/Relative Pathnames
+
+absolute pathnames always begin with a /.
+
+Following are some examples of absolute filenames.
+
+/etc/passwd
+/users/sjones/chem/notes
+/dev/rdsk/Os3
+
+Relative pathnames never begin with /. Relative to user amrood's home directory, some pathnames might look like this −
+chem/notes
+personal/res
+
+$pwd
+/user0/home/amrood
+------------------------------------
+
+Listing Directories
+
+$ls dirname
+Following is the example to list all the files contained in /usr/local directory −
+
+$ls /usr/local
+
+X11       bin          gimp       jikes       sbin
+ace       doc          include    lib         share
+atalk     etc          info       man         ami
+----------------------------------------
+Creating Directories
+
+$mkdir dirname
+
+$mkdir /tmp/test-dir
+
+ more than one directory
+ $mkdir docs pub
+
+--------------------------------------
+Creating Parent Directories
+
+$mkdir /tmp/amrood/test
+mkdir: Failed to make directory "/tmp/amrood/test"; 
+No such file or directory
+$
+In such cases, you can specify the -p option to the mkdir command. It creates all the necessary directories for you. For example −
+
+$mkdir -p /tmp/amrood/test
+$
+The above command creates all the required parent directories.
+----------------------------------------
+Removing Directories
+
+$rmdir dirname
+
+You can remove multiple directories at a time as follows −
+
+$rmdir dirname1 dirname2 dirname3
+
+---------------------------------------------
+Changing Directories
+
+$cd dirname
+
+$cd /usr/local/bin
+Changes to the directory /usr/local/bin. From this directory, you can cd to the directory /usr/home/amrood using the following relative path −
+
+$cd ../../home/amrood
+-------------------------------------------
+Renaming Directories
+
+$mv olddir newdir
+
+$mv mydir yourdir
+-------------------------------------------
+The directories . (dot) and .. (dot dot)
+
+$ls -la
+drwxrwxr-x    4    teacher   class   2048  Jul 16 17.56 .
+drwxr-xr-x    60   root              1536  Jul 13 14:18 ..
+----------    1    teacher   class   4210  May 1 08:27 .profile
+-rwxr-xr-x    1    teacher   class   1948  May 12 13:42 memo
+$
+-------------------------------
