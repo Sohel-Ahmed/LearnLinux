@@ -1,0 +1,312 @@
+Unix - Processes Management
+
+Whenever you issue a command in Unix, it creates, or starts, a new process. When you tried out the ls command to list the directory contents, you started a process. A process, in simple terms, is an instance of a running program.
+
+The operating system tracks processes through a five-digit ID number known as the pid or the process ID. Each process in the system has a unique pid.
+
+Starting a Process
+
+Foreground Processes
+By default, every process that you start runs in the foreground. It gets its input from the keyboard and sends its output to the screen.
+
+$ls ch*.doc
+This would display all the files, the names of which start with ch and end with .doc −
+
+ch01-1.doc   ch010.doc  ch02.doc    ch03-2.doc 
+ch04-1.doc   ch040.doc  ch05.doc    ch06-2.doc
+ch01-2.doc   ch02-1.doc
+
+Background Processes
+A background process runs without being connected to your keyboard. If the background process requires any keyboard input, it waits.
+The simplest way to start a background process is to add an ampersand (&) at the end of the command.
+
+$ls ch*.doc &
+This displays all those files the names of which start with ch and end with .doc −
+
+ch01-1.doc   ch010.doc  ch02.doc    ch03-2.doc 
+ch04-1.doc   ch040.doc  ch05.doc    ch06-2.doc
+ch01-2.doc   ch02-1.doc
+
+Here, if the ls command wants any input (which it does not), it goes into a stop state until we move it into the foreground and give it the data from the keyboard.
+
+
+Press the Enter key and you will see the following −
+
+[1]   +   Done                 ls ch*.doc &
+$
+----------------------------------------------------
+Listing Running Processes
+
+ps (process status) command as follows −
+
+$ps
+PID       TTY      TIME        CMD
+18358     ttyp3    00:00:00    sh
+18361     ttyp3    00:01:31    abiword
+18789     ttyp3    00:00:00    ps
+
+most commonly used flags for ps is the -f ( f for full) option
+$ps -f
+UID      PID  PPID C STIME    TTY   TIME CMD
+amrood   6738 3662 0 10:23:03 pts/6 0:00 first_one
+amrood   6739 3662 0 10:22:54 pts/6 0:00 second_one
+amrood   3662 3657 0 08:10:53 pts/6 0:00 -ksh
+amrood   6892 3662 4 10:51:50 pts/6 0:00 ps -f
+
+Here is the description of all the fields displayed by ps -f command −
+
+S.No.	Column & Description
+1	
+UID
+
+User ID that this process belongs to (the person running it)
+
+2	
+PID
+
+Process ID
+
+3	
+PPID
+
+Parent process ID (the ID of the process that started it)
+
+4	
+C
+
+CPU utilization of process
+
+5	
+STIME
+
+Process start time
+
+6	
+TTY
+
+Terminal type associated with the process
+
+7	
+TIME
+
+CPU time taken by the process
+
+8	
+CMD
+
+The command that started this process
+
+-----------------------------------
+
+
+Stopping Processes
+
+$ps -f
+UID      PID  PPID C STIME    TTY   TIME CMD
+amrood   6738 3662 0 10:23:03 pts/6 0:00 first_one
+amrood   6739 3662 0 10:22:54 pts/6 0:00 second_one
+amrood   3662 3657 0 08:10:53 pts/6 0:00 -ksh
+amrood   6892 3662 4 10:51:50 pts/6 0:00 ps -f
+$kill 6738
+Terminated
+Here, the kill command terminates the first_one process. If a process ignores a regular kill command, you can use kill -9 followed by the process ID as follows −
+
+$kill -9 6738
+Terminated
+--------------------------------------
+
+Parent and Child Processes
+
+
+Each unix process has two ID numbers assigned to it: The Process ID (pid) and the Parent process ID (ppid). Each user process in the system has a parent process.
+
+Most of the commands that you run have the shell as their parent. Check the ps -f example where this command listed both the process ID and the parent process ID.
+
+-------------------------------
+
+Zombie and Orphan Processes
+Normally, when a child process is killed, the parent process is updated via a SIGCHLD signal. Then the parent can do some other task or restart a new child as needed. However, sometimes the parent process is killed before its child is killed. In this case, the "parent of all processes," the init process, becomes the new PPID (parent process ID). In some cases, these processes are called orphan processes.
+-----------------------------------------------
+Daemon Processes
+Daemons are system-related background processes that often run with the permissions of root and services requests from other processes.
+
+--------------------------
+The top Command
+The top command is a very useful tool for quickly showing processes sorted by various criteria.
+
+$top
+------------------------------------------------
+Job ID Versus Process ID
+Background and suspended processes are usually manipulated via job number (job ID). This number is different from the process ID and is used because it is shorter.
+---------------------------------------------
+
+
+Unix - Network Communication Utilities
+--------------------------------------------
+
+When you work in a distributed environment, you need to communicate with remote users and you also need to access remote Unix machines.
+
+There are several Unix utilities that help users compute in a networked, distributed environment.
+-----------------------------------------------
+
+The ping Utility
+The ping command sends an echo request to a host available on the network. Using this command, you can check if your remote host is responding well or not.
+
+The ping command is useful for the following −
+
+Tracking and isolating hardware and software problems.
+Determining the status of the network and various foreign hosts.
+Testing, measuring, and managing networks.
+Syntax
+Following is the simple syntax to use the ping command −
+
+$ping hostname or ip-address
+
+$ping google.com
+PING google.com (74.125.67.100) 56(84) bytes of data.
+64 bytes from 74.125.67.100: icmp_seq = 1 ttl = 54 time = 39.4 ms
+64 bytes from 74.125.67.100: icmp_seq = 2 ttl = 54 time = 39.9 ms
+64 bytes from 74.125.67.100: icmp_seq = 3 ttl = 54 time = 39.3 ms
+64 bytes from 74.125.67.100: icmp_seq = 4 ttl = 54 time = 39.1 ms
+64 bytes from 74.125.67.100: icmp_seq = 5 ttl = 54 time = 38.8 ms
+--- google.com ping statistics ---
+22 packets transmitted, 22 received, 0% packet loss, time 21017ms
+rtt min/avg/max/mdev = 38.867/39.334/39.900/0.396 ms
+$
+If a host does not exist, you will receive the following output −
+
+$ping giiiiiigle.com
+ping: unknown host giiiiigle.com
+$
+----------------------------------------------
+
+The ftp Utility
+
+Here, ftp stands for File Transfer Protocol. This utility helps you upload and download your file from one computer to another computer.
+
+The ftp utility has its own set of Unix-like commands. These commands help you perform tasks such as −
+
+Connect and login to a remote host.
+
+Navigate directories.
+
+List directory contents.
+
+Put and get files.
+
+Transfer files as ascii, ebcdic or binary.
+
+Syntax
+Following is the simple syntax to use the ping command −
+
+$ftp hostname or ip-address
+
+$ftp amrood.com
+Connected to amrood.com.
+220 amrood.com FTP server (Ver 4.9 Thu Sep 2 20:35:07 CDT 2009)
+Name (amrood.com:amrood): amrood
+331 Password required for amrood.
+Password:
+230 User amrood logged in.
+ftp> dir
+200 PORT command successful.
+150 Opening data connection for /bin/ls.
+total 1464
+drwxr-sr-x   3 amrood   group       1024 Mar 11 20:04 Mail
+drwxr-sr-x   2 amrood   group       1536 Mar  3 18:07 Misc
+drwxr-sr-x   5 amrood   group        512 Dec  7 10:59 OldStuff
+drwxr-sr-x   2 amrood   group       1024 Mar 11 15:24 bin
+drwxr-sr-x   5 amrood   group       3072 Mar 13 16:10 mpl
+-rw-r--r--   1 amrood   group     209671 Mar 15 10:57 myfile.out
+drwxr-sr-x   3 amrood   group        512 Jan  5 13:32 public
+drwxr-sr-x   3 amrood   group        512 Feb 10 10:17 pvm3
+226 Transfer complete.
+ftp> cd mpl
+250 CWD command successful.
+ftp> dir
+200 PORT command successful.
+150 Opening data connection for /bin/ls.
+total 7320
+-rw-r--r--   1 amrood   group       1630 Aug  8 1994  dboard.f
+-rw-r-----   1 amrood   group       4340 Jul 17 1994  vttest.c
+-rwxr-xr-x   1 amrood   group     525574 Feb 15 11:52 wave_shift
+-rw-r--r--   1 amrood   group       1648 Aug  5 1994  wide.list
+-rwxr-xr-x   1 amrood   group       4019 Feb 14 16:26 fix.c
+226 Transfer complete.
+ftp> get wave_shift
+200 PORT command successful.
+150 Opening data connection for wave_shift (525574 bytes).
+226 Transfer complete.
+528454 bytes received in 1.296 seconds (398.1 Kbytes/s)
+ftp> quit
+221 Goodbye.
+$
+
+-----------------------------------
+
+The telnet Utility
+
+
+There are times when we are required to connect to a remote Unix machine and work on that machine remotely. Telnet is a utility that allows a computer user at one site to make a connection, login and then conduct work on a computer at another site.
+
+C:>telnet amrood.com
+Trying...
+Connected to amrood.com.
+Escape character is '^]'.
+
+login: amrood
+amrood's Password: 
+*****************************************************
+*                                                   *
+*                                                   *
+*    WELCOME TO AMROOD.COM                          *
+*                                                   *
+*                                                   *
+*****************************************************
+
+Last unsuccessful login: Fri Mar  3 12:01:09 IST 2009
+Last login: Wed Mar  8 18:33:27 IST 2009 on pts/10
+
+   {  do your work }
+
+$ logout
+Connection closed.
+C:>
+
+---------------------------------------
+The finger Utility
+
+The finger command displays information about users on a given host. The host can be either local or remote.
+
+Finger may be disabled on other systems for security reasons.
+
+Following is the simple syntax to use the finger command −
+
+Check all the logged-in users on the local machine −
+
+$ finger
+Login     Name       Tty      Idle  Login Time   Office
+amrood               pts/0          Jun 25 08:03 (62.61.164.115)
+Get information about a specific user available on the local machine −
+
+$ finger amrood
+Login: amrood                           Name: (null)
+Directory: /home/amrood                 Shell: /bin/bash
+On since Thu Jun 25 08:03 (MST) on pts/0 from 62.61.164.115
+No mail.
+No Plan.
+Check all the logged-in users on the remote machine −
+
+$ finger @avtar.com
+Login     Name       Tty      Idle  Login Time   Office
+amrood               pts/0          Jun 25 08:03 (62.61.164.115)
+Get the information about a specific user available on the remote machine −
+
+$ finger amrood@avtar.com
+Login: amrood                           Name: (null)
+Directory: /home/amrood                 Shell: /bin/bash
+On since Thu Jun 25 08:03 (MST) on pts/0 from 62.61.164.115
+No mail.
+No Plan.
+
+------------------------------------

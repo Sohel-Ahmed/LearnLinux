@@ -1,0 +1,185 @@
+$TEST = "Unix Programming"
+$echo $TEST
+Unix Programming
+
+Note that the environment variables are set without using the $ sign but while accessing them we use the $ sign as prefix
+
+Setting the PATH
+
+The PATH variable specifies the locations in which the shell should look for commands. Usually the Path variable is set as follows −
+
+$PATH = /bin:/usr/bin
+$
+
+Following is the sample example showing few environment variables −
+
+$ echo $HOME
+/root
+]$ echo $DISPLAY
+
+$ echo $TERM
+xterm
+$ echo $PATH
+/usr/local/bin:/bin:/usr/bin:/home/amrood/bin:/usr/local/bin
+$
+-----------------------------------------
+
+Unix Basic Utilities - Printing, Email
+
+Printing Files
+
+pr option(s) filename(s)
+
+Before using pr, here are the contents of a sample file named food.
+
+$cat food
+Sweet Tooth
+Bangkok Wok
+Mandalay
+Afghani Cuisine
+Isle of Java
+Big Apple Deli
+Sushi and Sashimi
+Tio Pepe's Peppers
+........
+$
+Let's use the pr command to make a two-column report with the header Restaurants −
+
+$pr -2 -h "Restaurants" food
+Nov  7  9:58 1997  Restaurants   Page 1
+
+Sweet Tooth              Isle of Java
+Bangkok Wok              Big Apple Deli
+Mandalay                 Sushi and Sashimi
+Afghani Cuisine          Tio Pepe's Peppers
+........
+
+-------------------------------
+Your system administrator has probably set up a default printer at your site. To print a file named food on the default printer, use the lp or lpr command, as in the following example −
+
+$lp food
+request id is laserp-525  (1 file)
+$---------------------------------------
+
+Use lpstat -o if you want to see all output requests other than just your own. Requests are shown in the order they'll be printed −
+
+$lpstat -o
+laserp-573  john  128865  Nov 7  11:27  on laserp
+laserp-574  grace  82744  Nov 7  11:28
+laserp-575  john   23347  Nov 7  11:35
+
+The lpq gives slightly different information than lpstat -o −
+
+$lpq
+laserp is ready and printing
+Rank   Owner      Job  Files                  Total Size
+active john       573  report.ps              128865 bytes
+1st    grace      574  ch03.ps ch04.ps        82744 bytes
+2nd    john       575  standard input         23347 bytes
+$
+Here the first line displays the printer status. If the printer is disabled or running out of paper, you may see different messages on this first line.
+
+-------------------------------------------------
+
+The cancel and lprm Commands
+
+$cancel laserp-575
+request "laserp-575" cancelled
+$
+
+To cancel whatever request is currently printing, regardless of its ID, simply enter cancel and the printer name −
+
+$cancel laserp
+request "laserp-573" cancelled
+$
+
+$lprm 575
+dfA575diamond dequeued
+cfA575diamond dequeued
+$
+The lprm command tells you the actual filenames removed from the printer queue.
+
+-----------------------------
+
+Sending Email
+
+$mail [-s subject] [-c cc-addr] [-b bcc-addr] to-addr
+
+
+to send a test message to admin@yahoo.com.
+
+$mail -s "Test Message" admin@yahoo.com 
+
+You can send a complete file using a redirect < operator as follows −
+
+$mail -s "Report 05/06/07" admin@yahoo.com < demo.txt 
+
+-------------------
+
+To check incoming email at your Unix system, you simply type email as follows −
+
+$mail
+no email
+--------------------------------
+
+Unix - Pipes and Filters
+----------------------------------
+
+The grep Command
+
+The grep command searches a file or files for lines that have a certain pattern. The syntax is −
+
+$grep pattern file(s)
+
+$ls -l | grep "Aug"
+-rw-rw-rw-   1 john  doc     11008 Aug  6 14:10 ch02
+-rw-rw-rw-   1 john  doc      8515 Aug  6 15:30 ch07
+-rw-rw-r--   1 john  doc      2488 Aug 15 10:51 intro
+-rw-rw-r--   1 carol doc      1605 Aug 23 07:35 macros
+$
+
+$ls -l | grep -i "carol.*aug"
+-rw-rw-r--   1 carol doc      1605 Aug 23 07:35 macros
+$
+---------------------------------------
+The sort Command
+
+$sort food
+Afghani Cuisine
+Bangkok Wok
+Big Apple Deli
+Isle of Java
+
+Mandalay
+Sushi and Sashimi
+Sweet Tooth
+Tio Pepe's Peppers
+$
+
+
+The following pipe consists of the commands ls, grep, and sort −
+
+$ls -l | grep "Aug" | sort +4n
+-rw-rw-r--  1 carol doc      1605 Aug 23 07:35 macros
+-rw-rw-r--  1 john  doc      2488 Aug 15 10:51 intro
+-rw-rw-rw-  1 john  doc      8515 Aug  6 15:30 ch07
+-rw-rw-rw-  1 john  doc     11008 Aug  6 14:10 ch02
+$
+This pipe sorts all files in your directory modified in August by the order of size, and prints them on the terminal screen. The sort option +4n skips four fields (fields are separated by blanks) then sorts the lines in numeric order.
+-----------------------------------------
+
+The pg and more Commands
+
+Let's assume that you have a long directory listing. To make it easier to read the sorted listing, pipe the output through more as follows −
+
+$ls -l | grep "Aug" | sort +4n | more
+-rw-rw-r--  1 carol doc      1605 Aug 23 07:35 macros
+-rw-rw-r--  1 john  doc      2488 Aug 15 10:51 intro
+-rw-rw-rw-  1 john  doc      8515 Aug  6 15:30 ch07
+-rw-rw-r--  1 john  doc     14827 Aug  9 12:40 ch03
+	.
+	.
+	.
+-rw-rw-rw-  1 john  doc     16867 Aug  6 15:56 ch05
+--More--(74%)
+----------------------------------------

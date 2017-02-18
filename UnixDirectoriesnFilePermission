@@ -101,3 +101,132 @@ drwxr-xr-x    60   root              1536  Jul 13 14:18 ..
 -rwxr-xr-x    1    teacher   class   1948  May 12 13:42 memo
 $
 -------------------------------
+Unix - File Permission / Access Modes
+-------------------------------------------
+ Every file in Unix has the following attributes −
+
+Owner permissions − The owner's permissions determine what actions the owner of the file can perform on the file.
+
+Group permissions − The group's permissions determine what actions a user, who is a member of the group that a file belongs to, can perform on the file.
+
+Other (world) permissions − The permissions for others indicate what action all other users can perform on the file.
+-----------------------------------------
+The Permission Indicators
+
+$ls -l /home/amrood
+-rwxr-xr--  1 amrood   users 1024  Nov 2 00:10  myfile
+drwxr-xr--- 1 amrood   users 1024  Nov 2 00:10  mydir
+
+The first three characters (2-4) represent the permissions for the file's owner. For example, -rwxr-xr-- represents that the owner has read (r), write (w) and execute (x) permission.
+
+The second group of three characters (5-7) consists of the permissions for the group to which the file belongs. For example, -rwxr-xr-- represents that the group has read (r) and execute (x) permission, but no write permission.
+
+The last group of three characters (8-10) represents the permissions for everyone else. For example, -rwxr-xr-- represents that there is read (r) only permission.
+------------------------------------------------
+File Access Modes
+
+read, write, and execute
+------------------------------------------------
+Directory Access Modes
+
+Read
+Access to a directory means that the user can read the contents. The user can look at the filenames inside the directory.
+
+Write
+Access means that the user can add or delete files from the directory.
+
+Execute
+Executing a directory doesn't really make sense, so think of this as a traverse permission.
+
+A user must have execute access to the bin directory in order to execute the ls or the cd command.
+--------------------------------------------
+Changing Permissions
+
+S.No.	Chmod operator & Description
+1	
++  Adds the designated permission(s) to a file or directory.
+
+2	
+-  Removes the designated permission(s) from a file or directory.
+
+3	
+=  Sets the designated permission(s).
+
+$ls -l testfile
+-rwxrwxr--  1 amrood   users 1024  Nov 2 00:10  testfile
+
+$chmod o+wx testfile
+$ls -l testfile
+-rwxrwxrwx  1 amrood   users 1024  Nov 2 00:10  testfile
+$chmod u-x testfile
+$ls -l testfile
+-rw-rwxrwx  1 amrood   users 1024  Nov 2 00:10  testfile
+$chmod g = rx testfile
+$ls -l testfile
+-rw-r-xrwx  1 amrood   users 1024  Nov 2 00:10  testfile
+
+Here's how you can combine these commands on a single line −
+
+$chmod o+wx,u-x,g = rx testfile
+$ls -l testfile
+-rw-r-xrwx  1 amrood   users 1024  Nov 2 00:10  testfile
+--------------------------------------------------
+Using chmod with Absolute Permissions
+
+Number	Octal Permission Representation	Ref
+0	No permission	---
+1	Execute permission	--x
+2	Write permission	-w-
+3	Execute and write permission: 1 (execute) + 2 (write) = 3	-wx
+4	Read permission	r--
+5	Read and execute permission: 4 (read) + 1 (execute) = 5	r-x
+6	Read and write permission: 4 (read) + 2 (write) = 6	rw-
+7	All permissions: 4 (read) + 2 (write) + 1 (execute) = 7	rwx
+
+$ls -l testfile
+-rwxrwxr--  1 amrood   users 1024  Nov 2 00:10  testfile
+
+$ chmod 755 testfile
+$ls -l testfile
+-rwxr-xr-x  1 amrood   users 1024  Nov 2 00:10  testfile
+$chmod 743 testfile
+$ls -l testfile
+-rwxr---wx  1 amrood   users 1024  Nov 2 00:10  testfile
+$chmod 043 testfile
+$ls -l testfile
+----r---wx  1 amrood   users 1024  Nov 2 00:10  testfile
+---------------------------------------------
+
+Changing Owners
+
+$ chown amrood testfile
+
+Changes the owner of the given file to the user amrood.
+
+Changing Group Ownership
+
+$ chgrp special testfile
+
+Changes the group of the given file to special group.
+
+--------------------------------------
+Set User ID (SUID) and Set Group ID (SGID) bits
+
+$ ls -l /usr/bin/passwd
+-r-sr-xr-x  1   root   bin  19031 Feb 7 13:47  /usr/bin/passwd*
+$
+Shows that the SUID bit is set and that the command is owned by the root. A capital letter S in the execute position instead of a lowercase s indicates that the execute bit is not set.
+
+To set the SUID and SGID bits for any directory try the following command −
+
+$ chmod ug+s dirname
+$ ls -l
+drwsr-sr-x 2 root root  4096 Jun 19 06:45 dirname
+$
+
+
+
+
+
+-----------------------------------------------
+
