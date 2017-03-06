@@ -1,0 +1,144 @@
+Unix - Shell Decision Making
+-------------------------------------
+if...else statements
+case...esac Statement
+
+-------------------------------------
+Unix - Shell Loop Types
+
+Nesting while Loops
+
+while command1 ; # this is loop1, the outer loop
+do
+   Statement(s) to be executed if command1 is true
+
+   while command2 ; # this is loop2, the inner loop
+   do
+      Statement(s) to be executed if command2 is true
+   done
+
+   Statement(s) to be executed if command1 is true
+done
+
+#!/bin/sh
+
+a=0
+while [ "$a" -lt 10 ]    # this is loop1
+do
+   b="$a"
+   while [ "$b" -ge 0 ]  # this is loop2
+   do
+      echo -n "$b "
+      b=`expr $b - 1`
+   done
+   echo
+   a=`expr $a + 1`
+done
+
+This will produce the following result. It is important to note how echo -n works here. Here -n option lets echo avoid printing a new line character.
+
+0
+1 0
+2 1 0
+3 2 1 0
+4 3 2 1 0
+5 4 3 2 1 0
+6 5 4 3 2 1 0
+7 6 5 4 3 2 1 0
+8 7 6 5 4 3 2 1 0
+9 8 7 6 5 4 3 2 1 0
+--------------------------------------------
+
+Unix - Shell Loop Control
+
+The infinite Loop
+
+#!/bin/sh
+
+a=10
+
+until [ $a -lt 10 ]
+do
+   echo $a
+   a=expr $a + 1`
+done
+This loop continues forever because a is always greater than or equal to 10 and it is never less than 10.
+
+-----------------------------------
+The break Statement
+
+#!/bin/sh
+
+a=0
+
+while [ $a -lt 10 ]
+do
+   echo $a
+   if [ $a -eq 5 ]
+   then
+      break
+   fi
+   a=`expr $a + 1`
+done
+Upon execution, you will receive the following result −
+
+0
+1
+2
+3
+4
+5
+----------------------------------
+
+Here is a simple example of nested for loop. This script breaks out of both loops if var1 equals 2 and var2 equals 0 −
+
+#!/bin/sh
+
+for var1 in 1 2 3
+do
+   for var2 in 0 5
+   do
+      if [ $var1 -eq 2 -a $var2 -eq 0 ]
+      then
+         break 2
+      else
+         echo "$var1 $var2"
+      fi
+   done
+done
+
+Upon execution, you will receive the following result. In the inner loop, you have a break command with the argument 2. This indicates that if a condition is met you should break out of outer loop and ultimately from the inner loop as well.
+
+1 0
+1 5
+-------------------------------------------
+
+The continue statement
+
+Example
+The following loop makes use of the continue statement which returns from the continue statement and starts processing the next statement −
+
+#!/bin/sh
+
+NUMS="1 2 3 4 5 6 7"
+
+for NUM in $NUMS
+do
+   Q=`expr $NUM % 2`
+   if [ $Q -eq 0 ]
+   then
+      echo "Number is an even number!!"
+      continue
+   fi
+   echo "Found odd number"
+done
+Upon execution, you will receive the following result −
+
+Found odd number
+Number is an even number!!
+Found odd number
+Number is an even number!!
+Found odd number
+Number is an even number!!
+Found odd number
+-------------------------------------

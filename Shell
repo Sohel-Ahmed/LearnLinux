@@ -1,0 +1,299 @@
+Unix - What is Shells?
+
+A Shell provides you with an interface to the Unix system. It gathers input from you and executes programs based on that input.
+
+Shell is an environment in which we can run our commands, programs, and shell scripts. There are different flavors of a shell, just as there are different flavors of operating systems. Each flavor of shell has its own set of recognized commands and functions.
+
+-----------------------------------------
+
+Shell Prompt
+The prompt, $, which is called the command prompt, is issued by the shell.
+
+$date
+Thu Jun 25 08:30:19 MST 2009
+
+-----------------------------------
+Shell Types
+
+In Unix, there are two major types of shells −
+
+Bourne shell − If you are using a Bourne-type shell, the $ character is the default prompt.
+
+C shell − If you are using a C-type shell, the % character is the default prompt.
+
+The original Unix shell was written in the mid-1970s by Stephen R. Bourne while he was at the AT&T Bell Labs in New Jersey.
+
+Bourne shell was the first shell to appear on Unix systems, thus it is referred to as "the shell".
+
+Bourne shell is usually installed as /bin/sh on most versions of Unix.
+-----------------------------------------------
+Shell Scripts
+
+Assume we create a test.sh script. Note all the scripts would have the .sh extension. 
+
+This is done using the shebang construct. For example −
+
+#!/bin/sh
+
+--------------------
+
+To create a script containing these commands, you put the shebang line first and then add the commands −
+
+#!/bin/bash
+pwd
+ls
+
+----------------------
+
+Shell Comments
+
+You can put your comments in your script as follows −
+
+
+#!/bin/bash
+
+# Author : Zara Ali
+# Copyright (c) Tutorialspoint.com
+# Script follows here:
+pwd
+ls
+
+---------------------------
+
+Save the above content and make the script executable −
+
+$chmod +x test.sh
+
+
+The shell script is now ready to be executed −
+
+$./test.sh
+Upon execution, you will receive the following result −
+
+/home/amrood
+index.htm  unix-basic_utilities.htm  unix-directories.htm  
+test.sh    unix-communication.htm    unix-environment.htm
+
+---------------------------------------------
+Extended Shell Scripts
+
+The following script uses the read command which takes the input from the keyboard and assigns it as the value of the variable PERSON and finally prints it on STDOUT.
+
+#!/bin/sh
+
+# Author : Zara Ali
+# Copyright (c) Tutorialspoint.com
+# Script follows here:
+
+echo "What is your name?"
+read PERSON
+echo "Hello, $PERSON"
+Here is a sample run of the script −
+
+$./test.sh
+What is your name?
+Zara Ali
+Hello, Zara Ali
+----------------------------------
+
+Unix - Using Shell Variables
+----------------------------------
+The following examples are valid variable names −
+
+_ALI
+TOKEN_A
+VAR_1
+VAR_2
+
+Following are the examples of invalid variable names −
+
+2_VAR
+-VARIABLE
+VAR1-VAR2
+VAR_A!
+The reason you cannot use other characters such as !, *, or - is that these characters have a special meaning for the shell.
+----------------------------------------
+Defining Variables
+
+variable_name=variable_value
+
+For example −
+
+NAME="Zara Ali"
+
+Shell enables you to store any value you want in a variable. For example −
+
+VAR1="Zara Ali"
+VAR2=100
+
+---------------------------------------
+
+Accessing Values
+
+#!/bin/sh
+
+NAME="Zara Ali"
+echo $NAME
+The above script will produce the following value −
+
+Zara Ali
+---------------------------
+Read-only Variables
+
+#!/bin/sh
+
+NAME="Zara Ali"
+readonly NAME
+NAME="Qadiri"
+
+The above script will generate the following result −
+
+/bin/sh: NAME: This variable is read only.
+-------------------------------------
+
+Unsetting Variables
+
+unset variable_name
+
+#!/bin/sh
+
+NAME="Zara Ali"
+unset NAME
+echo $NAME
+The above example does not print anything. You cannot use the unset command to unset variables that are marked readonly.
+
+-----------------------------------
+
+Variable Types
+
+Local Variables − A local variable is a variable that is present within the current instance of the shell.
+
+Environment Variables − An environment variable is available to any child process of the shell. 
+
+Shell Variables − A shell variable is a special variable that is set by the shell and is required by the shell in order to function correctly.
+----------------------------------------------
+
+Unix - Special Variables
+
+For example, the $ character represents the process ID number, or PID, of the current shell −
+
+$echo $$
+
+The above command writes the PID of the current shell −
+
+29949
+-------------------------------------
+The following table shows a number of special variables that you can use in your shell scripts −
+
+S.No.	Variable & Description
+1	
+$0
+
+The filename of the current script.
+
+2	
+$n
+
+These variables correspond to the arguments with which a script was invoked. Here n is a positive decimal number corresponding to the position of an argument (the first argument is $1, the second argument is $2, and so on).
+
+3	
+$#
+
+The number of arguments supplied to a script.
+
+4	
+$*
+
+All the arguments are double quoted. If a script receives two arguments, $* is equivalent to $1 $2.
+
+5	
+$@
+
+All the arguments are individually double quoted. If a script receives two arguments, $@ is equivalent to $1 $2.
+
+6	
+$?
+
+The exit status of the last command executed.
+
+7	
+$$
+
+The process number of the current shell. For shell scripts, this is the process ID under which they are executing.
+
+8	
+$!
+
+The process number of the last background command.
+
+------------------------------------
+Command-Line Arguments
+
+Following script uses various special variables related to the command line −
+
+#!/bin/sh
+
+echo "File Name: $0"
+echo "First Parameter : $1"
+echo "Second Parameter : $2"
+echo "Quoted Values: $@"
+echo "Quoted Values: $*"
+echo "Total Number of Parameters : $#"
+Here is a sample run for the above script −
+
+$./test.sh Zara Ali
+File Name : ./test.sh
+First Parameter : Zara
+Second Parameter : Ali
+Quoted Values: Zara Ali
+Quoted Values: Zara Ali
+Total Number of Parameters : 2
+-----------------------------------------
+
+Special Parameters $* and $@
+
+We can write the shell script as shown below to process an unknown number of commandline arguments with either the $* or $@ special parameters −
+
+#!/bin/sh
+
+for TOKEN in $*
+do
+   echo $TOKEN
+done
+Here is a sample run for the above script −
+
+$./test.sh Zara Ali 10 Years Old
+Zara
+Ali
+10
+Years
+Old
+Note − Here do...done is a kind of loop that will be covered in a subsequent tutorial.
+----------------------------------
+
+Exit Status
+
+The $? variable represents the exit status of the previous command.
+
+Following is the example of successful command −
+
+$./test.sh Zara Ali
+File Name : ./test.sh
+First Parameter : Zara
+Second Parameter : Ali
+Quoted Values: Zara Ali
+Quoted Values: Zara Ali
+Total Number of Parameters : 2
+$echo $?
+0
+$
+---------------------------------------
+
+
+
+
+
+
+
+
+

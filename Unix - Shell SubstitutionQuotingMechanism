@@ -1,0 +1,38 @@
+Unix - Shell Substitution
+----------------------------------
+What is Substitution?
+
+The shell performs substitution when it encounters an expression that contains one or more special characters.
+
+Example
+Here, the printing value of the variable is substituted by its value. Same time, "\n" is substituted by a new line −
+
+#!/bin/sh
+
+a=10
+echo -e "Value of a is $a \n"
+You will receive the following result. Here the -e option enables the interpretation of backslash escapes.
+
+Value of a is 10
+Following is the result without -e option −
+
+Value of a is 10\nExample
+Here, the printing value of the variable is substituted by its value. Same time, "\n" is substituted by a new line −
+
+#!/bin/sh
+
+a=10
+echo -e "Value of a is $a \n"
+You will receive the following result. Here the -e option enables the interpretation of backslash escapes.
+
+Value of a is 10
+Following is the result without -e option −
+
+Value of a is 10\n
+
+--------------------------
+Command Substitution
+
+`command`
+
+

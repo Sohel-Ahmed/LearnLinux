@@ -1,0 +1,115 @@
+Unix - Using Shell Arrays
+
+NAME01="Zara"
+NAME02="Qadir"
+NAME03="Mahnaz"
+NAME04="Ayan"
+NAME05="Daisy"
+
+array_name[index]=value
+
+If you are using the ksh shell, here is the syntax of array initialization −
+
+set -A array_name value1 value2 ... valuen
+
+If you are using the bash shell, here is the syntax of array initialization −
+
+array_name = (value1 ... valuen)
+--------------------------------
+
+Accessing Array Values
+
+${array_name[index]}
+
+#!/bin/sh
+
+NAME[0]="Zara"
+NAME[1]="Qadir"
+NAME[2]="Mahnaz"
+NAME[3]="Ayan"
+NAME[4]="Daisy"
+echo "First Index: ${NAME[0]}"
+echo "Second Index: ${NAME[1]}"
+
+The above example will generate the following result −
+
+$./test.sh
+First Index: Zara
+Second Index: Qadir
+
+----------------------------------------
+
+You can access all the items in an array in one of the following ways −
+
+${array_name[*]}
+${array_name[@]}
+Here array_name is the name of the array you are interested in. Following example will help you understand the concept −
+
+#!/bin/sh
+
+NAME[0]="Zara"
+NAME[1]="Qadir"
+NAME[2]="Mahnaz"
+NAME[3]="Ayan"
+NAME[4]="Daisy"
+echo "First Method: ${NAME[*]}"
+echo "Second Method: ${NAME[@]}"
+The above example will generate the following result −
+
+$./test.sh
+First Method: Zara Qadir Mahnaz Ayan Daisy
+Second Method: Zara Qadir Mahnaz Ayan Daisy
+
+
+--------------------------------------------
+Unix - Shell Basic Operators
+
+#!/bin/sh
+
+val=`expr 2 + 2`
+echo "Total value : $val"
+The above script will generate the following result −
+
+Total value : 4
+-----------------------
+Arithmetic Operators
+The following arithmetic operators are supported by Bourne Shell.
+
+Assume variable a holds 10 and variable b holds 20 then −
+
+Show Examples
+
+Operator	Description	Example
++ (Addition)	Adds values on either side of the operator	`expr $a + $b` will give 30
+- (Subtraction)	Subtracts right hand operand from left hand operand	`expr $a - $b` will give -10
+* (Multiplication)	Multiplies values on either side of the operator	`expr $a \* $b` will give 200
+/ (Division)	Divides left hand operand by right hand operand	`expr $b / $a` will give 2
+% (Modulus)	Divides left hand operand by right hand operand and returns remainder	`expr $b % $a` will give 0
+= (Assignment)	Assigns right operand in left operand	a = $b would assign value of b into a
+== (Equality)	Compares two numbers, if both are same then returns true.	[ $a == $b ] would return false.
+!= (Not Equality)	Compares two numbers, if both are different then returns true.	[ $a != $b ] would return true.
+It is very important to understand that all the conditional expressions should be inside square braces with spaces around them, for example [ $a == $b ] is correct whereas, [$a==$b] is incorrect.
+
+--------------------------
+
+
+Relational Operators
+Bourne Shell supports the following relational operators that are specific to numeric values. These operators do not work for string values unless their value is numeric.
+
+For example, following operators will work to check a relation between 10 and 20 as well as in between "10" and "20" but not in between "ten" and "twenty".
+
+Assume variable a holds 10 and variable b holds 20 then −
+
+Show Examples
+
+Operator	Description	Example
+-eq	Checks if the value of two operands are equal or not; if yes, then the condition becomes true.	[ $a -eq $b ] is not true.
+-ne	Checks if the value of two operands are equal or not; if values are not equal, then the condition becomes true.	[ $a -ne $b ] is true.
+-gt	Checks if the value of left operand is greater than the value of right operand; if yes, then the condition becomes true.	[ $a -gt $b ] is not true.
+-lt	Checks if the value of left operand is less than the value of right operand; if yes, then the condition becomes true.	[ $a -lt $b ] is true.
+-ge	Checks if the value of left operand is greater than or equal to the value of right operand; if yes, then the condition becomes true.	[ $a -ge $b ] is not true.
+-le	Checks if the value of left operand is less than or equal to the value of right operand; if yes, then the condition becomes true.	[ $a -le $b ] is true.
+-----------------------------------------
+
+Boolean Operators
+
